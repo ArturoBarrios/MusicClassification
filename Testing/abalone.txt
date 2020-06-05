@@ -1,0 +1,1 @@
+Sex,Length,Diameter,Height,Whole Weight,Shucked Weight,Viscera Weight,Shell Weight

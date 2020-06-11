@@ -6,7 +6,7 @@ from sklearn.metrics import r2_score
 from sklearn.metrics import mean_squared_error
 
 
-df = pd.read_csv("IrisTextFiles/abrsm_all_1.csv")
+df = pd.read_csv("data/abrsm_all_1.csv")
 
 
 

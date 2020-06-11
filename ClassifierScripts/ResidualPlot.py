@@ -3,14 +3,14 @@ from sklearn.model_selection import train_test_split
 
 #loading example data
 x_labels = []
-f = open("./IrisTextFiles/musicIrisLowLevelFeaturesAll.txt","r")
+f = open("./data/musicIrisLowLevelFeaturesAll.txt","r")
 line = f.read()
 #put labels in x_labels
 
 for label in line.split(","):
     x_labels.append(label)
 
-X, y, type2id = loader.load_data('./IrisTextFiles/musicIrisLowLevelFeaturesAll.csv', y_label="Grade", x_labels=x_labels)
+X, y, type2id = loader.load_data('./data/musicIrisLowLevelFeaturesAll.csv', y_label="Grade", x_labels=x_labels)
 
 # Create the train and test data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)

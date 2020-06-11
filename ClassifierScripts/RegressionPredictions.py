@@ -11,7 +11,7 @@ from sklearn.ensemble import VotingRegressor
 
 #loading example data
 x_labels = []
-f = open("./IrisTextFiles/musicIrisLowLevelFeaturesAll.txt","r")
+f = open("./data/musicIrisLowLevelFeaturesAll.txt","r")
 line = f.read()
 #put labels in x_labels
 
@@ -19,7 +19,7 @@ for label in line.split(","):
     x_labels.append(label)
 
 #x_labels=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-X, y, type2id = loader.load_data('./IrisTextFiles/musicIrisLowLevelFeaturesAll.csv', y_label="Grade", x_labels=x_labels)
+X, y, type2id = loader.load_data('./data/musicIrisLowLevelFeaturesAll.csv', y_label="Grade", x_labels=x_labels)
 
 
 # Training classifiers

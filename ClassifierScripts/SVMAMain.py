@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-data = pd.read_csv("IrisTextFiles/PianoMarvelNoTotal.csv")
+data = pd.read_csv("data/PianoMarvelNoTotal.csv")
 data = data[data.Grade <11]
 dict = {}
 for elem in data.Grade:

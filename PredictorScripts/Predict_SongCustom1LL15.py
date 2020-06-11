@@ -584,8 +584,8 @@ def Classify_Song(file):
     print("RelativeStrengthOfTopPitchesFeature Done")
     feature_values['Name'] = str(file)
     if(feature_index==0):
-        labels_file = open("./IrisTextFiles/temp.txt","w")
-        f = open("./IrisTextFiles/temp.csv","w")
+        labels_file = open("./data/temp.txt","w")
+        f = open("./data/temp.csv","w")
 
     write_index = 0
     #print("feature values: ",feature_values)
@@ -628,7 +628,7 @@ def Classify_Song(file):
     f.flush()
     f.seek(0)
     ###################################################################predict values of unknown features
-    data = pd.read_csv("./IrisTextFiles/temp.csv")
+    data = pd.read_csv("./data/temp.csv")
     labels=data['Name']
     X = data.drop(['Name'],axis=1)
     filename = "./ClassificationModels/GBRLowLevelCustomFeaturesModel.sav"

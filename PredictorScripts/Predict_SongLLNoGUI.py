@@ -105,7 +105,7 @@ for root, dirs, song_files in os.walk("./Midi_Files/Unknown_Songs"):
     ds.process()
     print("music processed...Now adding features")
 
-f = open("./IrisTextFiles/temp.csv","w")
+f = open("./data/temp.csv","w")
 i = 0
 #write attribute labels in csv file
 features = ds.getAttributeLabels()[1:]
@@ -133,7 +133,7 @@ print("feature values added")
 f.flush()
 f.seek(0)
 ###################################################################predict values of unknown features
-data = pd.read_csv("./IrisTextFiles/temp.csv")
+data = pd.read_csv("./data/temp.csv")
 labels=data['Name']
 X = data.drop(['Name'],axis=1)
 filename = "./ClassificationModels/GBRLowLevelFeaturesAll1.sav"

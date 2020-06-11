@@ -1510,8 +1510,8 @@ for root, dirs, song_files in os.walk("MusicXML_Files/PianoMarvelSongs/RegularSo
         file_name = str(file).replace(",","")
         feature_values['Name'] = str(file_name)
         if(feature_index==0):
-            labels_file = open("./IrisTextFiles/temp.txt","w")
-            f = open("./IrisTextFiles/temp.csv","w")
+            labels_file = open("./data/temp.txt","w")
+            f = open("./data/temp.csv","w")
 
         write_index = 0
         #print("feature values: ",feature_values)
@@ -1554,7 +1554,7 @@ print("feature values added")
 f.flush()
 f.seek(0)
 ###################################################################predict values of unknown features
-data = pd.read_csv("./IrisTextFiles/temp.csv")
+data = pd.read_csv("./data/temp.csv")
 labels=data['Name']
 X = data.drop(['Name'],axis=1)
 filename = "./ClassificationModels/SomeLLFeatures2Model.sav"
@@ -1575,7 +1575,7 @@ for grade in predictions:
 
 # fb =  ClassInformation()
 #
-# file_path = "./IrisTextFiles/temp.csv"
+# file_path = "./data/temp.csv"
 # unknown_song_grade =level_of_song
 # unknown_feature_values =  fb.average_values_unknown(file_path,unknown_song_grade)
 # objects_unknown = []
@@ -1593,7 +1593,7 @@ for grade in predictions:
 #
 # count = 0
 
-# file_path = "./IrisTextFiles/music_IrisCustom2Features15LL.csv"
+# file_path = "./data/music_IrisCustom2Features15LL.csv"
 # feature_values =  fb.average_values(file_path)
 # objects = []
 # performance = []

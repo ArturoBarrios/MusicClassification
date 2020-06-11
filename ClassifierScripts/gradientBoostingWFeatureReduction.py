@@ -22,7 +22,7 @@ def round_half_up(n, decimals=0):
 ####################################################################Examining Data
 #musicIrisLowLevelFeaturesAll(best result so far)
 #music_IrisAmbroseCustom(second set of best results)
-data = pd.read_csv("IrisTextFiles/PianoMarvelNoTotal.csv")
+data = pd.read_csv("data/PianoMarvelNoTotal.csv")
 data = data[data.Grade <10]
 #describe data(mean,avg,std,etc)
 print(data.describe())

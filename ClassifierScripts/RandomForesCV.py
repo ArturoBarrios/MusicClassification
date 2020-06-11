@@ -44,7 +44,7 @@ def round_half_up(n, decimals=0):
 #read in data
 #musicIrisLowLevelFeaturesAll(best result so far)
 #music_IrisAmbroseCustom(second set of best results)
-data = pd.read_csv("IrisTextFiles/abrsm_all_1.csv")
+data = pd.read_csv("data/abrsm_all_1.csv")
 N = 500
 data = data.sample(frac=1).reset_index(drop=True)
 data = data.groupby('Grade')\

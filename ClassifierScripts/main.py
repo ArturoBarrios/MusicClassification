@@ -17,7 +17,7 @@ def main():
     # Load the data
 
     x_labels = []
-    f = open("./IrisTextFiles/music_IrisNCAmbroseClassical.txt","r")
+    f = open("./data/music_IrisNCAmbroseClassical.txt","r")
     line = f.read()
     #put labels in x_labels
 
@@ -25,7 +25,7 @@ def main():
         x_labels.append(label)
 
     #x_labels=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-    x, y, type2id = loader.load_data('./IrisTextFiles/music_IrisNCAmbroseClassical.csv', y_label="Grade", x_labels=x_labels)
+    x, y, type2id = loader.load_data('./data/music_IrisNCAmbroseClassical.csv', y_label="Grade", x_labels=x_labels)
 
     # summation_X = []
     # summation_Y = []

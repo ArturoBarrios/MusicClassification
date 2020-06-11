@@ -11,7 +11,54 @@ from sklearn.decomposition import KernelPCA
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 import math
- 
+def main():
+    N = 500
+    data = pd.read_csv("data/abrsm_all_1.csv")
+    data = data.sample(frac=1).reset_index(drop=True)
+    data = data[data.Grade<10]
+    data = data.groupby('Grade')\
+        .apply(lambda x: x[:N])
+    labels = data['Grade']
+    X = data.drop(['Grade'],axis = 1)
+    print(labels)
+
+    scaler = StandardScaler()
+    scaler.fit(X)
+    scaledX = scaler.transform(X)
+
+    #FeatureAgglomeration reduction
+    agglo = cluster.FeatureAgglomeration(n_clusters=128)
+    agglo.fit(scaledX)
+    X_reduced = agglo.transform(scaledX)
+    #Principal component analysis
+    pca = PCA(n_components=2, svd_solver='full')
+    pca.fit(X)
+    X_reducedPCA = pca.transform(X)
+    #Kernel principal component analysis
+    kpca = KernelPCA(n_components=20, kernel='cosine')
+    kpca.fit(X)
+    X_reducedKPCA = kpca.transform(X)
+    N=500
+    print("no feature reduction: ")
+    res = TrainPredictRandomForestRegressor(scaledX,labels, N)
+    print("Agglomerative Feature Reduction: ")
+    res2 = TrainPredictRandomForestRegressor(X_reduced,labels, N)
+    # print("Principal Component Analysis Feature Reduction ")
+    # res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
+    # print("Kernel Principal Component Analysis Feature Reduction ")
+    # res4 = TrainPredictRandomForestRegressor(X_reducedKPCA,labels, N)
+
+
+
+    plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
+                        title='Normalized confusion matrix')
+    plot_confusion_matrix(res2[2], res2[3], classes=labels, normalize=True,
+                            title='Normalized confusion matrix')
+
+
+    # showFeatureImportance(res[0],res[1])
+    # showFeatureImportance(res2[0],res2[1])
+     
 def round_half_up(n, decimals=0):
     multiplier = 10 ** decimals
     return math.ceil(n*multiplier + 0.5) / multiplier
@@ -118,51 +165,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 
 
-N = 500
-data = pd.read_csv("IrisTextFiles/music_marvel_GE_80.csv")
-data = data.sample(frac=1).reset_index(drop=True)
-data = data[data.Grade<10]
-data = data.groupby('Grade')\
-    .apply(lambda x: x[:N])
-labels = data['Grade']
-X = data.drop(['Grade'],axis = 1)
-print(labels)
-
-scaler = StandardScaler()
-scaler.fit(X)
-scaledX = scaler.transform(X)
-
-#FeatureAgglomeration reduction
-agglo = cluster.FeatureAgglomeration(n_clusters=128)
-agglo.fit(scaledX)
-X_reduced = agglo.transform(scaledX)
-#Principal component analysis
-pca = PCA(n_components=2, svd_solver='full')
-pca.fit(X)
-X_reducedPCA = pca.transform(X)
-#Kernel principal component analysis
-kpca = KernelPCA(n_components=20, kernel='cosine')
-kpca.fit(X)
-X_reducedKPCA = kpca.transform(X)
-N=500
-print("no feature reduction: ")
-res = TrainPredictRandomForestRegressor(scaledX,labels, N)
-print("Agglomerative Feature Reduction: ")
-res2 = TrainPredictRandomForestRegressor(X_reduced,labels, N)
-# print("Principal Component Analysis Feature Reduction ")
-# res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
-# print("Kernel Principal Component Analysis Feature Reduction ")
-# res4 = TrainPredictRandomForestRegressor(X_reducedKPCA,labels, N)
 
 
-
-plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
-                      title='Normalized confusion matrix')
-plot_confusion_matrix(res2[2], res2[3], classes=labels, normalize=True,
-                        title='Normalized confusion matrix')
-
-
-# showFeatureImportance(res[0],res[1])
-# showFeatureImportance(res2[0],res2[1])
-
-
+if __name__ == "__main__":
+    main()

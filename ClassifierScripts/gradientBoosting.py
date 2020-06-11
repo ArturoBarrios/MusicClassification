@@ -25,7 +25,7 @@ def round_half_up(n, decimals=0):
 #get first column of first row X[0,0]
 ####################################################################Examining Data
 #read in data
-data = pd.read_csv("IrisTextFiles/PianoMarvelNoTotal.csv")#
+data = pd.read_csv("data/PianoMarvelNoTotal.csv")#
 data = data[data.Grade < 10]
 # data2 = data[data.Grade == 8]
 # frames = [data1,data2]

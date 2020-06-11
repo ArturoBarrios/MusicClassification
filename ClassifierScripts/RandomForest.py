@@ -36,7 +36,7 @@ def round_half_up(n, decimals=0):
 #read in data
 #musicIrisLowLevelFeaturesAll(best result so far)
 #music_IrisAmbroseCustom(second set of best results)
-data = pd.read_csv("IrisTextFiles/abrsm_all_1.csv")#
+data = pd.read_csv("data/abrsm_all_1.csv")#
 # data = data[data.Grade < 10]
 # data2 = data[data.Grade == 8]
 # frames = [data1,data2]

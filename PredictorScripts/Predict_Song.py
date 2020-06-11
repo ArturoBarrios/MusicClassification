@@ -66,7 +66,7 @@ def path_leaf(path):
 
 def Classify_Song(file):
     #get all unique chords in model
-    model_file = open("IrisTextFiles/music_IrisWCG3.txt","r")
+    model_file = open("data/music_IrisWCG3.txt","r")
     chords_in_model_file = model_file.readlines()[0].split(',')
     chords_in_model = []
     print(len(chords_in_model_file))
@@ -188,8 +188,8 @@ def Classify_Song(file):
 
     index+=1
 
-    f = open("IrisTextFiles/music_IrisWCUknown.csv","w")
-    labels_file = open("IrisTextFiles/music_IrisWCUknown.txt","w")
+    f = open("data/music_IrisWCUknown.csv","w")
+    labels_file = open("data/music_IrisWCUknown.txt","w")
     f.write("Id,length,key,number_of_notes,total_measures,"
     "time_signature_num,time_signature_den,range,")
     labels_file.write("length,key,number_of_notes,total_measures,"
@@ -243,13 +243,13 @@ def Classify_Song(file):
     labels_file.seek(0)
 
     x_labels = []
-    f = open("IrisTextFiles/music_IrisWCG3.txt","r")
+    f = open("data/music_IrisWCG3.txt","r")
     line = f.read()
     #put labels in x_labels
     for label in line.split(","):
         x_labels.append(label)
 
-    X, y, type2id = loader.load_data('IrisTextFiles/music_IrisWCUknown.csv', y_label="Grade", x_labels=x_labels)
+    X, y, type2id = loader.load_data('data/music_IrisWCUknown.csv', y_label="Grade", x_labels=x_labels)
 
     print("length of X: ",len(X[0]))
     # dividing X, y into train and test data

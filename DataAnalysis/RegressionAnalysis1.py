@@ -11,7 +11,7 @@ def scale(x,min_x,max_x,a,b):
 
 
 
-df = pd.read_csv("IrisTextFiles/abrsm_all_1.csv")
+df = pd.read_csv("data/abrsm_all_1.csv")
 
 #describe data(mean,avg,std,etc)
 dict = {}

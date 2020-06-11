@@ -1520,8 +1520,8 @@ for root, dirs, song_files in os.walk("MusicXML_Files/PianoMarvelSongs/RegularSo
         file_name = str(file).replace(",","")
         feature_values['Name'] = str(file_name)
         if(feature_index==0):
-            labels_file = open("./IrisTextFiles/temp2.txt","w")
-            f = open("./IrisTextFiles/temp2.csv","w")
+            labels_file = open("./data/temp2.txt","w")
+            f = open("./data/temp2.csv","w")
 
         write_index = 0
         #print("feature values: ",feature_values)
@@ -1565,12 +1565,12 @@ f.flush()
 f.seek(0)
 ###################################################################predict values of unknown features
 #fit original data
-data = pd.read_csv("IrisTextFiles/PianoMarvelNoTotal.csv")
+data = pd.read_csv("data/PianoMarvelNoTotal.csv")
 train1 = data.drop(['Grade'],axis=1)
 
 
 #read in new data
-data = pd.read_csv("IrisTextFiles/temp2.csv")
+data = pd.read_csv("data/temp2.csv")
 labels=data['Name']
 X = data.drop(['Name'],axis=1)
 

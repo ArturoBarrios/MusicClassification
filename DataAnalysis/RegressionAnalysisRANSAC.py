@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 import numpy as np
 
 
-df = pd.read_csv("IrisTextFiles/PianoMarvelNoTotal.csv")
+df = pd.read_csv("data/PianoMarvelNoTotal.csv")
 X = df[['average_large_10jumps_LH']]
 y = df['Grade'].values
 

@@ -20,7 +20,7 @@ from sklearn.model_selection import train_test_split
 # y = iris.target
 
 x_labels = []
-f = open("./IrisTextFiles/music_IrisNCAmbroseClassical.txt","r")
+f = open("./data/music_IrisNCAmbroseClassical.txt","r")
 line = f.read()
 #put labels in x_labels
 
@@ -28,7 +28,7 @@ for label in line.split(","):
     x_labels.append(label)
 
 #x_labels=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-X, y, type2id = loader.load_data('./IrisTextFiles/music_IrisNCAmbroseClassical.csv', y_label="Grade", x_labels=x_labels)
+X, y, type2id = loader.load_data('./data/music_IrisNCAmbroseClassical.csv', y_label="Grade", x_labels=x_labels)
 
 # dividing X, y into train and test data
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)

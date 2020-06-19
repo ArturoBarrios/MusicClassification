@@ -11,6 +11,9 @@ from sklearn.decomposition import KernelPCA
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 import math
+from sklearn.externals import joblib
+
+
 def main():
     N = 500
     data = pd.read_csv("data/abrsm_all_1.csv")
@@ -39,8 +42,8 @@ def main():
     kpca.fit(X)
     X_reducedKPCA = kpca.transform(X)
     N=500
-    print("no feature reduction: ")
-    res = TrainPredictRandomForestRegressor(scaledX,labels, N)
+    # print("no feature reduction: ")
+    # res = TrainPredictRandomForestRegressor(scaledX,labels, N)
     print("Agglomerative Feature Reduction: ")
     res2 = TrainPredictRandomForestRegressor(X_reduced,labels, N)
     # print("Principal Component Analysis Feature Reduction ")
@@ -50,8 +53,8 @@ def main():
 
 
 
-    plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
-                        title='Normalized confusion matrix')
+    # plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
+    #                     title='Normalized confusion matrix')
     plot_confusion_matrix(res2[2], res2[3], classes=labels, normalize=True,
                             title='Normalized confusion matrix')
 
@@ -90,6 +93,9 @@ def TrainPredictRandomForestRegressor(X, labels, estimators ):
     y_train_pred = clf.predict(x_train)
     print("no feature selection train score: ",r2_score(y_train,y_train_pred))
     print("no feature selection test score: ",r2_score(y_test,y_test_pred))
+
+    filename = './ClassificationModels/abrsm_all_1.sav'
+    joblib.dump(clf, filename)
     return (clf,x_train,y_test_pred,y_test)
 
 def plot_confusion_matrix(y_true, y_pred, classes,

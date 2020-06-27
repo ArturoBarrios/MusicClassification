@@ -1178,6 +1178,7 @@ songs_features = dict()
 feature_index = 0
 for root, dirs, song_files in os.walk("Testing/TestSongs2/"):
     for file in song_files:
+        print("file type: ", type(file))
         print("hmm",sklearn.__version__)
         feature_values = dict()
         print("file: ",file)
@@ -2108,9 +2109,9 @@ agglo = cluster.FeatureAgglomeration(n_clusters=128)
 agglo.fit(scaled_new_X)
 new_X_reduced = agglo.transform(scaled_new_X)
 
-#fit new data using fitted scaler
+#fit new data usinjoblibg fitted scaler
 filename = "./ClassificationModels/abrsm_all_1.sav"
-loaded_model = joblib.load(filename)
+loaded_model = .load(filename)
 
 #print predictions
 predictions = loaded_model.predict(new_X_reduced)

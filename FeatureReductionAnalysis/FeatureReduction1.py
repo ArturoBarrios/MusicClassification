@@ -11,19 +11,29 @@ from sklearn.decomposition import KernelPCA
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 import math
-from sklearn.externals import joblib
+import joblib
+
 
 
 def main():
-    N = 500
-    data = pd.read_csv("data/abrsm_all_1.csv")
+    N = 200
+    data = pd.read_csv("data/piano_marvel_all_2000_1.csv")
     data = data.sample(frac=1).reset_index(drop=True)
-    data = data[data.Grade<10]
+    data = data[data.Grade<9]
     data = data.groupby('Grade')\
         .apply(lambda x: x[:N])
+
+    dict = {}
+    for elem in data.Grade:
+        if elem not in dict:
+            dict[elem] = 0
+        print("el: ", elem)
+        dict[elem] = dict[elem] + 1
+
+    print(dict)
+    
     labels = data['Grade']
     X = data.drop(['Grade'],axis = 1)
-    print(labels)
 
     scaler = StandardScaler()
     scaler.fit(X)
@@ -45,7 +55,7 @@ def main():
     # print("no feature reduction: ")
     # res = TrainPredictRandomForestRegressor(scaledX,labels, N)
     print("Agglomerative Feature Reduction: ")
-    res2 = TrainPredictRandomForestRegressor(X_reduced,labels, N)
+    res2 = TrainPredictRandomForestRegressor(X_reduced,labels, 1000)
     # print("Principal Component Analysis Feature Reduction ")
     # res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
     # print("Kernel Principal Component Analysis Feature Reduction ")
@@ -86,7 +96,7 @@ def showFeatureImportance(clf, X):
     plt.show()
     
 def TrainPredictRandomForestRegressor(X, labels, estimators ):
-    x_train,x_test,y_train,y_test = train_test_split(X,labels,test_size=.25,random_state=2,stratify=labels)
+    x_train,x_test,y_train,y_test = train_test_split(X,labels,test_size=.4,random_state=2,stratify=labels)
     clf = RandomForestRegressor(n_estimators=estimators,min_samples_split=2,min_samples_leaf=1,random_state=0)
     clf.fit(x_train,y_train)
     y_test_pred = clf.predict(x_test)
@@ -94,12 +104,12 @@ def TrainPredictRandomForestRegressor(X, labels, estimators ):
     print("no feature selection train score: ",r2_score(y_train,y_train_pred))
     print("no feature selection test score: ",r2_score(y_test,y_test_pred))
 
-    filename = './ClassificationModels/abrsm_all_1.sav'
+    filename = './ClassificationModels/piano_marvel_all_2000_1.sav'
     joblib.dump(clf, filename)
     return (clf,x_train,y_test_pred,y_test)
 
 def plot_confusion_matrix(y_true, y_pred, classes,
-                          normalize=True,
+                          normalize=False,
                           title=None,
                           cmap=plt.cm.Blues):
     """

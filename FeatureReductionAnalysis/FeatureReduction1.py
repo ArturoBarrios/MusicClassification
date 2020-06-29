@@ -16,7 +16,7 @@ import joblib
 
 
 def main():
-    N = 200
+    N = 500
     data = pd.read_csv("data/piano_marvel_all_2000_1.csv")
     data = data.sample(frac=1).reset_index(drop=True)
     data = data[data.Grade<9]
@@ -52,10 +52,10 @@ def main():
     kpca.fit(X)
     X_reducedKPCA = kpca.transform(X)
     N=500
-    # print("no feature reduction: ")
-    # res = TrainPredictRandomForestRegressor(scaledX,labels, N)
-    print("Agglomerative Feature Reduction: ")
-    res2 = TrainPredictRandomForestRegressor(X_reduced,labels, 1000)
+    print("no feature reduction: ")
+    res = TrainPredictRandomForestRegressor(X,labels, 1000)
+    # print("Agglomerative Feature Reduction: ")
+    # res2 = TrainPredictRandomForestRegressor(X_reduced,labels, 1000)
     # print("Principal Component Analysis Feature Reduction ")
     # res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
     # print("Kernel Principal Component Analysis Feature Reduction ")
@@ -65,7 +65,7 @@ def main():
 
     # plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
     #                     title='Normalized confusion matrix')
-    plot_confusion_matrix(res2[2], res2[3], classes=labels, normalize=True,
+    plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
                             title='Normalized confusion matrix')
 
 
@@ -96,7 +96,7 @@ def showFeatureImportance(clf, X):
     plt.show()
     
 def TrainPredictRandomForestRegressor(X, labels, estimators ):
-    x_train,x_test,y_train,y_test = train_test_split(X,labels,test_size=.4,random_state=2,stratify=labels)
+    x_train,x_test,y_train,y_test = train_test_split(X,labels,test_size=.2,random_state=2,stratify=labels)
     clf = RandomForestRegressor(n_estimators=estimators,min_samples_split=2,min_samples_leaf=1,random_state=0)
     clf.fit(x_train,y_train)
     y_test_pred = clf.predict(x_test)

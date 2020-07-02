@@ -16,8 +16,8 @@ import joblib
 
 
 def main():
-    N = 500
-    data = pd.read_csv("data/piano_marvel_all_2000_1.csv")
+    N = 300
+    data = pd.read_csv("data/abrsm_all_1.csv")
     data = data.sample(frac=1).reset_index(drop=True)
     data = data[data.Grade<9]
     data = data.groupby('Grade')\
@@ -51,11 +51,11 @@ def main():
     kpca = KernelPCA(n_components=20, kernel='cosine')
     kpca.fit(X)
     X_reducedKPCA = kpca.transform(X)
-    N=500
+   
     print("no feature reduction: ")
-    res = TrainPredictRandomForestRegressor(X,labels, 1000)
+    # res = TrainPredictRandomForestRegressor(X,labels, 1000)
     # print("Agglomerative Feature Reduction: ")
-    # res2 = TrainPredictRandomForestRegressor(X_reduced,labels, 1000)
+    res2 = TrainPredictRandomForestRegressor(X_reduced,labels, 300)
     # print("Principal Component Analysis Feature Reduction ")
     # res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
     # print("Kernel Principal Component Analysis Feature Reduction ")
@@ -65,7 +65,7 @@ def main():
 
     # plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
     #                     title='Normalized confusion matrix')
-    plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
+    plot_confusion_matrix(res1[2], res1[3], classes=labels, normalize=True,
                             title='Normalized confusion matrix')
 
 
@@ -104,7 +104,7 @@ def TrainPredictRandomForestRegressor(X, labels, estimators ):
     print("no feature selection train score: ",r2_score(y_train,y_train_pred))
     print("no feature selection test score: ",r2_score(y_test,y_test_pred))
 
-    filename = './ClassificationModels/piano_marvel_all_2000_1.sav'
+    filename = './ClassificationModels/abrsm_all_3.sav'
     joblib.dump(clf, filename)
     return (clf,x_train,y_test_pred,y_test)
 

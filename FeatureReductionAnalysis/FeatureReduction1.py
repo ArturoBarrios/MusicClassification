@@ -17,7 +17,7 @@ import joblib
 
 def main():
     N = 300
-    data = pd.read_csv("data/abrsm_all_1.csv")
+    data = pd.read_csv("data/abrsm_2019_2020_all_1.csv")
     data = data.sample(frac=1).reset_index(drop=True)
     data = data[data.Grade<9]
     data = data.groupby('Grade')\
@@ -65,7 +65,7 @@ def main():
 
     # plot_confusion_matrix(res[2], res[3], classes=labels, normalize=True,
     #                     title='Normalized confusion matrix')
-    plot_confusion_matrix(res1[2], res1[3], classes=labels, normalize=True,
+    plot_confusion_matrix(res2[2], res2[3], classes=labels, normalize=True,
                             title='Normalized confusion matrix')
 
 
@@ -97,14 +97,14 @@ def showFeatureImportance(clf, X):
     
 def TrainPredictRandomForestRegressor(X, labels, estimators ):
     x_train,x_test,y_train,y_test = train_test_split(X,labels,test_size=.2,random_state=2,stratify=labels)
-    clf = RandomForestRegressor(n_estimators=estimators,min_samples_split=2,min_samples_leaf=1,random_state=0)
+    clf = RandomForestRegressor(n_estimators=estimators,min_samples_split=2,min_samples_leaf=2,random_state=0)
     clf.fit(x_train,y_train)
     y_test_pred = clf.predict(x_test)
     y_train_pred = clf.predict(x_train)
     print("no feature selection train score: ",r2_score(y_train,y_train_pred))
     print("no feature selection test score: ",r2_score(y_test,y_test_pred))
 
-    filename = './ClassificationModels/abrsm_all_3.sav'
+    filename = './ClassificationModels/abrsm_2019_2020_all_3.sav'
     joblib.dump(clf, filename)
     return (clf,x_train,y_test_pred,y_test)
 

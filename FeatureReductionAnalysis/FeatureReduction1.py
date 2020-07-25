@@ -16,8 +16,8 @@ import joblib
 
 
 def main():
-    N = 300
-    data = pd.read_csv("data/abrsm_2020_2021_all_1.csv")
+    N = 3000
+    data = pd.read_csv("data/abrsm_2019_2021_all_1.csv")
     data = data.sample(frac=1).reset_index(drop=True)
     data = data[data.Grade<9]
     data = data.groupby('Grade')\
@@ -55,7 +55,7 @@ def main():
     print("no feature reduction: ")
     # res = TrainPredictRandomForestRegressor(X,labels, 1000)
     # print("Agglomerative Feature Reduction: ")
-    res2 = TrainPredictRandomForestRegressor(scaledX,labels, 500)
+    res2 = TrainPredictRandomForestRegressor(X,labels, 600)
     # print("Principal Component Analysis Feature Reduction ")
     # res3 = TrainPredictRandomForestRegressor(X_reducedPCA,labels, N)
     # print("Kernel Principal Component Analysis Feature Reduction ")
@@ -104,7 +104,7 @@ def TrainPredictRandomForestRegressor(X, labels, estimators ):
     print("no feature selection train score: ",r2_score(y_train,y_train_pred))
     print("no feature selection test score: ",r2_score(y_test,y_test_pred))
 
-    filename = './ClassificationModels/abrsm_2020_2021_all_2.sav'
+    filename = './ClassificationModels/abrsm_2019_2021_all_1.sav'
     joblib.dump(clf, filename)
     return (clf,x_train,y_test_pred,y_test)
 
